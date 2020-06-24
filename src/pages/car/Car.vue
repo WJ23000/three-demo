@@ -2,14 +2,14 @@
     <div class="detail">
         <Header :title="title" @tzNext="toIndex"/>
         <div class="content">
-            
+            <div id="container"></div>
+            <div class="info"></div>
         </div>
     </div>
 </template>
 
 <script>
 import Header from '@/components/Header';
-import ''
 
 export default {
     name: 'Car',
@@ -18,7 +18,8 @@ export default {
     },
     data() {
         return {
-            title: "3D汽车模型"
+            title: "3D汽车模型",
+            model: "../../assets/model/car/ferrari.glb"
         }
     },
     created() {
