@@ -15,8 +15,6 @@
 </template>
 
 <script>
-import * as Three from 'three';
-
 import Header from '@/components/Header';
 
 export default {
