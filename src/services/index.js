@@ -13,3 +13,8 @@ export function editUserInfo(params) {
     const requestUrl = newUrl + "/editUserInfo";
     return post(requestUrl, params);
 }
+
+export function getModel(params) {
+    const requestUrl = "/api"+"mrdoob/three.js/tree/master/examples/models/gltf/ferrari.glb";
+    return get(requestUrl, params);
+}
