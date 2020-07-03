@@ -10,12 +10,12 @@
 
 <script type="module">
 import Header from "@/components/Header";
-import * as THREE from "three";
+import * as Three from "three";
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { getModel } from '@/services/index';
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { getCarModel } from "@/services/index";
 
 export default {
   name: "Car",
@@ -31,30 +31,30 @@ export default {
   created() {
     console.log("上级页面id:" + this.$route.query.id);
     // 获取3d模型数据
-    getModel().then((res) => {
-      console.log("获取json数据", res);
-    })
+    // getCarModel().then((res) => {
+    //   this.archetype = res;
+    // })
   },
   mounted() {
     var scene, camera, dirLight, stats;
     var renderer, mixer, controls;
 
-    var clock = new THREE.Clock();
+    var clock = new Three.Clock();
     var container = document.getElementById("container");
 
     stats = new Stats();
     container.appendChild(stats.dom);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new Three.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.outputEncoding = Three.sRGBEncoding;
     container.appendChild(renderer.domElement);
 
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xbfe3dd);
+    scene = new Three.Scene();
+    scene.background = new Three.Color(0xbfe3dd);
 
-    camera = new THREE.PerspectiveCamera(
+    camera = new Three.PerspectiveCamera(
       40,
       window.innerWidth / window.innerHeight,
       1,
@@ -68,16 +68,16 @@ export default {
     controls.enablePan = false;
     controls.enableDamping = true;
 
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x000000, 0.4));
+    scene.add(new Three.HemisphereLight(0xffffff, 0x000000, 0.4));
 
-    dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    dirLight = new Three.DirectionalLight(0xffffff, 1);
     dirLight.position.set(5, 2, 8);
     scene.add(dirLight);
 
     // envmap
-    var path = "textures/cube/Park2/";
+    var path = "/textures/cube/Park2/";
     var format = ".jpg";
-    var envMap = new THREE.CubeTextureLoader().load([
+    var envMap = new Three.CubeTextureLoader().load([
       path + "posx" + format,
       path + "negx" + format,
       path + "posy" + format,
@@ -87,13 +87,14 @@ export default {
     ]);
 
     var dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath("js/libs/draco/gltf/");
+    dracoLoader.setDecoderPath("three/examples/js/libs/draco/gltf/");
 
     var loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
     loader.load(
-      this.archetype,
+      "/models/LittlestTokyo.glb",
       function(gltf) {
+        console.log("loader.load", gltf);
         var model = gltf.scene;
         model.position.set(1, 1, 0);
         model.scale.set(0.01, 0.01, 0.01);
@@ -101,13 +102,13 @@ export default {
           if (child.isMesh) child.material.envMap = envMap;
         });
         scene.add(model);
-        mixer = new THREE.AnimationMixer(model);
+        mixer = new Three.AnimationMixer(model);
         mixer.clipAction(gltf.animations[0]).play();
         animate();
       },
       undefined,
       function(e) {
-        console.error(e);
+        console.error("ee", e);
       }
     );
 
@@ -138,6 +139,9 @@ export default {
 .detail {
   .content {
     font-size: 14px;
+    #container {
+      height: calc(100vh - 45px);
+    }
   }
 }
 </style>

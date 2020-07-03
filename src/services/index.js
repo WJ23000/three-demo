@@ -14,7 +14,7 @@ export function editUserInfo(params) {
     return post(requestUrl, params);
 }
 
-export function getModel(params) {
-    const requestUrl = "/api"+"mrdoob/three.js/tree/master/examples/models/gltf/ferrari.glb";
+export function getCarModel(params) {
+    const requestUrl = "/threejs/examples/models/gltf/ferrari.glb"; // 请求public文件夹下的模型文件
     return get(requestUrl, params);
 }
