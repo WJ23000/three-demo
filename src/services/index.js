@@ -15,6 +15,6 @@ export function editUserInfo(params) {
 }
 
 export function getCarModel(params) {
-    const requestUrl = "/threejs/examples/models/gltf/ferrari.glb"; // 请求public文件夹下的模型文件
+    const requestUrl = "/models/ferrari.glb"; // 请求public文件夹下的模型文件
     return get(requestUrl, params);
 }

@@ -1,4 +1,4 @@
-# three-demo
+# aframe-demo
 
 ## 技术栈
 
